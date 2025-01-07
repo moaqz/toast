@@ -15,7 +15,7 @@ I tried other libraries, but most of them were built for specific frameworks, wh
 
 ## Roadmap
 
-- [ ] Add on enter/exit animations
+- [X] Add on enter/exit animations
 - [ ] Export variables to customize the component
 - [ ] Improve accessibility
 - [ ] Provide documentation
