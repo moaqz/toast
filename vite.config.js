@@ -4,8 +4,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: "./lib/main.js",
-      name: "Toast",
+      name: "toast",
       fileName: "toast",
+      formats: ["es"]
     },
   },
 });
