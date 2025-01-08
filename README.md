@@ -103,6 +103,21 @@ moaqz-toaster {
 }
 ```
 
+**Position**
+
+By default, the default position is `bottom-right`. You can customize the position of the toasts by using the position attribute. The available options are:
+
+- top-right
+- top-left
+- top-center
+- bottom-right (default)
+- bottom-left
+- bottom-center
+
+```html
+<moaqz-toaster position="bottom-right"></moaqz-toaster>
+```
+
 ## Acknowledgments
 
 Thanks to [Manz](https://manz.dev/) for providing an excellent resource to learn [Web components](https://lenguajejs.com/webcomponents/). ♥️
