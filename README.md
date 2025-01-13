@@ -1,11 +1,10 @@
-## Why I created this component?
+## Motivation
 
-I created this toast component primarily for my own projects. I needed a simple, reusable toast notification system that could be easily integrated into any of my personal projects.
+I created this component mainly for my own projects. I needed a simple and reusable way to create toast notifications that could be easily integrated into any of my projects, regardless of the tech stack. 
 
-I tried other libraries, but most of them were built for specific frameworks, which limits their flexibility and usage across different projects. This component, on the other hand, is built using **Web Components** and **Custom events**, making it framework-independent and easy to integrate into any project, regardless of the tech stack.
+The component is built using **Web Components** and **Custom Events**, making it lightweight and easy to use. It also provides a utility `toast` function to create toasts without the need to manually dispatch custom events.
 
-> [!WARNING]
-> This component is not intended to replace existing, feature-rich toast libraries. It's a lightweight, minimalistic solution designed for developers who need a simple way to implement toast notifications.
+If you like this project, please consider giving it a ⭐.
 
 ## Features
 
@@ -23,7 +22,13 @@ I tried other libraries, but most of them were built for specific frameworks, wh
 
 ## Usage
 
-Install the package and import it in your JavaScript to register the custom element. Then, add the `<moaqz-toaster>` element to your HTML:
+**Install the library**
+
+```bash
+pnpm add @moaqzdev/toast
+```
+
+**Import the library in your JavaScript to register the custom element and then add the `<moaqz-toaster>` element to your HTML:**
 
 ```html
 <!doctype html>
@@ -31,10 +36,10 @@ Install the package and import it in your JavaScript to register the custom elem
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="/main.js"></script>
+    <!-- Make sure to import the library inside your script -->
+    <script type="module" src="/main.js"></script> 
   </head>
   <body>
-    <!-- Toaster container -->
     <moaqz-toaster></moaqz-toaster>
   </body>
 </html>
@@ -42,10 +47,10 @@ Install the package and import it in your JavaScript to register the custom elem
 
 **Using the toast API**
 
-Once the container is set up, import the `toast` from the package and use it to create notifications.
+Import the `toast` object from the library and use it to create notifications.
 
 ```js
-import { toast } from "@moaqzdev/toast"; // <-- Registers the custom element.
+import { toast } from "@moaqzdev/toast";
 
 toast.success({
   title: "Success! Everything went smoothly.",
@@ -63,7 +68,7 @@ toast.info({
 });
 ```
 
-**Customizing the Component**
+## Customization
 
 The component is customizable through CSS variables. You can override the default styles in your CSS to match your project’s design.
 
