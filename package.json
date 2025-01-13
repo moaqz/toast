@@ -1,8 +1,21 @@
 {
   "name": "@moaqzdev/toast",
   "private": false,
-  "version": "0.0.0-rc.2",
+  "version": "0.1.0",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "toast",
     "notification",
@@ -18,27 +31,14 @@
     "url": "git+https://github.com/moaqz/toast.git"
   },
   "license": "MIT",
-  "files": [
-    "dist",
-    "index.d.ts"
-  ],
-  "module": "./dist/toast.js",
-  "types": "./index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./index.d.ts",
-      "import": "./dist/toast.js"
-    }
-  },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "dev": "vite",
-    "build": "vite build"
+    "prepublishOnly": "unbuild --minify"
   },
   "devDependencies": {
     "eslint": "^9.17.0",
     "eslint-config-moaqz": "^0.2.0",
-    "vite": "^6.0.1"
+    "unbuild": "^3.2.0"
   }
 }

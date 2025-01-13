@@ -7,12 +7,12 @@ export const TOAST_EVENT = "@moaqzdev/toast";
 
 export const toast = {
   /**
-   * @param {import("../index.d").ToastType} type
-   * @param {import("../index.d").ToastEvent} details
+   * @param {import("./index.d").ToastType} type
+   * @param {import("./index.d").ToastEvent} details
    */
   _dispatchToast(type, { title, description }) {
     /**
-     * @type {CustomEvent<import("../index.d").Toast>}
+     * @type {CustomEvent<import("./index.d").Toast>}
      */
     const toast = new CustomEvent(TOAST_EVENT, {
       detail: { title, description, type },
@@ -22,28 +22,28 @@ export const toast = {
   },
 
   /**
-   * @param {import("../index.d").ToastEvent} details
+   * @param {import("./index.d").ToastEvent} details
    */
   success(details) {
     this._dispatchToast("success", details);
   },
 
   /**
-   * @param {import("../index.d").ToastEvent} details
+   * @param {import("./index.d").ToastEvent} details
    */
   error(details) {
     this._dispatchToast("error", details);
   },
 
   /**
-   * @param {import("../index.d").ToastEvent} details
+   * @param {import("./index.d").ToastEvent} details
    */
   warning(details) {
     this._dispatchToast("warning", details);
   },
 
   /**
-   * @param {import("../index.d").ToastEvent} details
+   * @param {import("./index.d").ToastEvent} details
    */
   info(details) {
     this._dispatchToast("info", details);
@@ -57,7 +57,7 @@ class Toaster extends HTMLElement {
   }
 
   /**
-   * @param {import("../index.d").Toast}
+   * @param {import("./index.d").Toast}
    */
   async createToast({ title, type, description }) {
     /** @type {HTMLTemplateElement | null} */
@@ -90,7 +90,7 @@ class Toaster extends HTMLElement {
     const isCustomEvent = event instanceof CustomEvent;
 
     if (isCustomEvent && event.type === TOAST_EVENT) {
-      /** @type {import("../index.d").Toast} */
+      /** @type {import("./index.d").Toast} */
       const details = event.detail;
       this.createToast(details);
     }
