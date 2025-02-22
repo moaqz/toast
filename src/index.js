@@ -322,6 +322,7 @@ class Toaster extends HTMLElement {
     flex-direction: var(--_toast-confirm-buttons-direction);
     justify-content: var(--_toast-confirm-buttons-justify);
     gap: var(--_toast-confirm-buttons-gap);
+    margin-top: 0.5rem;
   }
 
   [data-buttons] > button {
