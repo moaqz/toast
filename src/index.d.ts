@@ -1,12 +1,23 @@
-export type ToastType = "success" | "error" | "warning" | "info";
+export type ToastType = "success" | "error" | "warning" | "info" | "confirm";
+
+export type ToastConfirm = {
+  title: string;
+  description?: string
+  type: "confirm";
+  onConfirm: () => void;
+  onCancel?: () => void;
+  confirmText?: string;
+  cancelText?: string;
+};
 
 export type Toast = {
   title: string;
   description?: string;
   type: ToastType;
-};
+} | ToastConfirm;
 
-export type ToastEvent = Omit<Toast, "type">;
+export type ToastEventConfirm = Omit<ToastConfirm, "type">;
+export type ToastEvent = Omit<Toast, "type"> | ToastEventConfirm;
 
 export declare const TOAST_EVENT: string;
 
@@ -16,4 +27,5 @@ export declare const toast: {
   error(details: ToastEvent): void;
   warning(details: ToastEvent): void;
   info(details: ToastEvent): void;
+  confirm(details: ToastEvent): void;
 };

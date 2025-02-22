@@ -8,14 +8,15 @@ export const TOAST_EVENT = "@moaqzdev/toast";
 export const toast = {
   /**
    * @param {import("./index.d").ToastType} type
-   * @param {import("./index.d").ToastEvent} details
+   * @param {import("./index.d").ToastEvent} detail
    */
-  _dispatchToast(type, { title, description }) {
+  _dispatchToast(type, detail) {
     /**
      * @type {CustomEvent<import("./index.d").Toast>}
      */
+    Object.assign(detail, { type });
     const toast = new CustomEvent(TOAST_EVENT, {
-      detail: { title, description, type },
+      detail,
     });
 
     document.dispatchEvent(toast);
@@ -48,6 +49,13 @@ export const toast = {
   info(details) {
     this._dispatchToast("info", details);
   },
+
+  /**
+   * @param {import("./index.d").ToastEvent & { onConfirm: () => void; onCancel?: () => void }} details
+   */
+  confirm(details) {
+    this._dispatchToast("confirm", details);
+  },
 };
 
 class Toaster extends HTMLElement {
@@ -59,7 +67,15 @@ class Toaster extends HTMLElement {
   /**
    * @param {import("./index.d").Toast}
    */
-  async createToast({ title, type, description }) {
+  async createToast({
+    title,
+    type,
+    description,
+    onConfirm,
+    onCancel,
+    confirmText = "✅",
+    cancelText = "❌",
+  }) {
     /** @type {HTMLTemplateElement | null} */
     const toastTemplate = this.shadowRoot.querySelector("#toast-tmpl");
 
@@ -69,17 +85,34 @@ class Toaster extends HTMLElement {
 
     const clonedTemplate = toastTemplate.content.cloneNode(true);
     const toastTitleEl = clonedTemplate.querySelector("[data-title]");
-    const toastDescriptionEl = clonedTemplate.querySelector("[data-description]");
+    const toastDescriptionEl =
+      clonedTemplate.querySelector("[data-description]");
     const toastEl = clonedTemplate.querySelector("[data-toast]");
 
     toastTitleEl.textContent = title;
     toastDescriptionEl.textContent = description;
     toastEl.setAttribute("data-type", type);
 
+    if (type === "confirm") {
+      const confirmButton = clonedTemplate.querySelector("button[data-button-type=\"confirm\"]");
+      confirmButton.textContent = confirmText;
+      confirmButton.addEventListener("click", () => {
+        onConfirm?.();
+        toastEl.remove();
+      });
+
+      const cancelButton = confirmButton.nextElementSibling;
+      cancelButton.textContent = cancelText;
+      cancelButton.addEventListener("click", () => {
+        onCancel?.();
+        toastEl.remove();
+      });
+    }
+
     this.shadowRoot.querySelector("[data-toaster]").appendChild(clonedTemplate);
 
     const animations = toastEl.getAnimations();
-    await Promise.allSettled(animations.map(animation => animation.finished));
+    await Promise.allSettled(animations.map((animation) => animation.finished));
     toastEl.remove();
   }
 
@@ -106,20 +139,24 @@ class Toaster extends HTMLElement {
   }
 
   render() {
-    this.shadowRoot.innerHTML = /* html */`
+    this.shadowRoot.innerHTML = /* html */ `
     <style>${Toaster.STYLES}</style>
 
     <template id="toast-tmpl">
       <li data-toast>
         <p data-title></p>
         <p data-description></p>
+        <div data-buttons>
+          <button data-button-type="confirm">✅</button>
+          <button data-button-type="cancel">❌</button>
+        </div>
       </li>
     </template>
 
     <ol data-toaster></ol>`;
   }
 
-  static STYLES = /* css */`
+  static STYLES = /* css */ `
   * {
     box-sizing: border-box;
   }
@@ -137,6 +174,15 @@ class Toaster extends HTMLElement {
     --_toast-error: var(--toast-error, #D2000571);
     --_toast-warning: var(--toast-warning, #E35F00AA);
     --_toast-info: var(--toast-info, #0084E6A1);
+
+    --_toast-confirm-buttons-direction: var(--toast-confirm-buttons-direction, row);
+    --_toast-confirm-buttons-justify: var(--toast-confirm-buttons-justify, flex-end);
+    --_toast-confirm-buttons-gap: var(--toast-confirm-buttons-gap, 1em);
+    --_toast-confirm-buttons-default-text-color: var(--toast-confirm-buttons-default-text-color, white);
+    --_toast-confirm-buttons-confirm-text-color: var(--toast-confirm-buttons-confirm-text-color, white);
+    --_toast-confirm-buttons-confirm-background-color: var(--toast-confirm-buttons-confirm-background-color, darkgreen);
+    --_toast-confirm-buttons-cancel-text-color: var(--toast-confirm-buttons-cancel-text-color, white);
+    --_toast-confirm-buttons-cancel-background-color: var(--toast-confirm-buttons-cancel-background-color, tomato);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -262,8 +308,49 @@ class Toaster extends HTMLElement {
     &[data-type="warning"] {
       border-top: 4px solid var(--_toast-warning)
     }
+
+    &[data-type="confirm"] {
+      border-top: 4px solid var(--_toast-info);
+    }
+    &[data-type="confirm"] > [data-buttons] {
+         display: flex;
+    }
   }
 
+  [data-buttons] {
+    display: none;
+    flex-direction: var(--_toast-confirm-buttons-direction);
+    justify-content: var(--_toast-confirm-buttons-justify);
+    gap: var(--_toast-confirm-buttons-gap);
+    margin-top: 0.5rem;
+  }
+
+  [data-buttons] > button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    color: var(--_toast-confirm-buttons-default-text-color);
+    @media (hover: hover) {
+      opacity: 0.8;
+    }
+  }
+    
+  [data-buttons] > button:hover, [data-buttons] > button:focus {
+    opacity: 1;
+  }
+      
+  [data-buttons] > button[data-button-type="confirm"] {
+    color: var(--_toast-confirm-buttons-confirm-text-color);
+    font-weight: bold;
+    background-color: var(--_toast-confirm-buttons-confirm-background-color);
+  }
+
+  [data-buttons] > button[data-button-type="cancel"] {
+    color: var(--_toast-confirm-buttons-cancel-text-color);
+    background-color:var(--_toast-confirm-buttons-cancel-background-color);
+  }
+  
   [data-title], [data-description] {
     margin: 0;
     all: initial; 
