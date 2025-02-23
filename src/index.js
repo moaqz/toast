@@ -73,6 +73,7 @@ class Toaster extends HTMLElement {
     description,
     onConfirm,
     onCancel,
+    duration,
     confirmText = "✅",
     cancelText = "❌",
   }) {
@@ -111,11 +112,30 @@ class Toaster extends HTMLElement {
       clonedTemplate.querySelector("[data-actions]")?.remove();
     }
 
+    const isValidDuration = +duration > 0 && +duration < Infinity && duration?.toString() !== "none";
+
+    if (isValidDuration) {
+      const durationCSSValue = Number.isNaN(+duration) ? duration : `${duration}s`;
+      this.style.setProperty("--toast-animation-duration", durationCSSValue);
+    }
+
+    if (duration !== undefined && !isValidDuration) {
+      this.style.setProperty("--toast-animation-duration", "none");
+    }
+
+    const cssDuration = this.style.getPropertyValue("--toast-animation-duration");
+    const isPersistentToast = cssDuration === "none" || cssDuration === "0" || cssDuration === "0s";
+    if (isPersistentToast) {
+      this.setAttribute("data-toast-persist", "true");
+    }
+
     this.shadowRoot.querySelector("[data-toaster]").appendChild(clonedTemplate);
 
-    const animations = toastEl.getAnimations();
-    await Promise.allSettled(animations.map((animation) => animation.finished));
-    toastEl.remove();
+    if (!isPersistentToast) {
+      const animations = toastEl.getAnimations();
+      await Promise.allSettled(animations.map((animation) => animation.finished));
+      toastEl.remove();
+    }
   }
 
   /**
@@ -300,6 +320,10 @@ class Toaster extends HTMLElement {
 
     @media (prefers-reduced-motion: reduce){
       --_travel-distance: 0;
+    }
+    
+    &[data-toast-persistent="true"] {
+      animation: none !important;
     }
   
     &[data-type="success"] {
