@@ -174,15 +174,17 @@ class Toaster extends HTMLElement {
     --_toast-error: var(--toast-error, #D2000571);
     --_toast-warning: var(--toast-warning, #E35F00AA);
     --_toast-info: var(--toast-info, #0084E6A1);
+    --_toast-confirm: var(--toast-confirm, #6600C06C);
 
     --_toast-confirm-buttons-direction: var(--toast-confirm-buttons-direction, row);
     --_toast-confirm-buttons-justify: var(--toast-confirm-buttons-justify, flex-end);
-    --_toast-confirm-buttons-gap: var(--toast-confirm-buttons-gap, 1em);
+    --_toast-confirm-buttons-gap: var(--toast-confirm-buttons-gap, 0.25rem);
+
     --_toast-confirm-buttons-default-text-color: var(--toast-confirm-buttons-default-text-color, white);
     --_toast-confirm-buttons-confirm-text-color: var(--toast-confirm-buttons-confirm-text-color, white);
-    --_toast-confirm-buttons-confirm-background-color: var(--toast-confirm-buttons-confirm-background-color, darkgreen);
+    --_toast-confirm-buttons-confirm-background-color: var(--toast-confirm-buttons-confirm-background-color, #00713FDE);
     --_toast-confirm-buttons-cancel-text-color: var(--toast-confirm-buttons-cancel-text-color, white);
-    --_toast-confirm-buttons-cancel-background-color: var(--toast-confirm-buttons-cancel-background-color, tomato);
+    --_toast-confirm-buttons-cancel-background-color: var(--toast-confirm-buttons-cancel-background-color, #C40006D3);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -196,6 +198,13 @@ class Toaster extends HTMLElement {
       --_toast-error: var(--toast-error, #FF5D61B0);
       --_toast-warning: var(--toast-warning, #FE84389D);
       --_toast-info: var(--toast-info, #3094FEB9);
+      --_toast-confirm: var(--toast-confirm, #C47EFFA4);
+
+      --_toast-confirm-buttons-default-text-color: var(--toast-confirm-buttons-default-text-color, white);
+      --_toast-confirm-buttons-confirm-text-color: var(--toast-confirm-buttons-confirm-text-color, white);
+      --_toast-confirm-buttons-confirm-background-color: var(--toast-confirm-buttons-confirm-background-color, #54FFAD73);
+      --_toast-confirm-buttons-cancel-text-color: var(--toast-confirm-buttons-cancel-text-color, white);
+      --_toast-confirm-buttons-cancel-background-color: var(--toast-confirm-buttons-cancel-background-color, #FF5D61B0);
     }
   }
 
@@ -310,10 +319,11 @@ class Toaster extends HTMLElement {
     }
 
     &[data-type="confirm"] {
-      border-top: 4px solid var(--_toast-info);
+      border-top: 4px solid var(--_toast-confirm);
     }
+
     &[data-type="confirm"] > [data-buttons] {
-         display: flex;
+      display: flex;
     }
   }
 
@@ -331,23 +341,23 @@ class Toaster extends HTMLElement {
     border-radius: 0.25rem;
     cursor: pointer;
     color: var(--_toast-confirm-buttons-default-text-color);
-    @media (hover: hover) {
-      opacity: 0.8;
-    }
+    transition-property: opacity;
+    transition-duration: 200ms;
   }
     
   [data-buttons] > button:hover, [data-buttons] > button:focus {
-    opacity: 1;
+    opacity: 0.8;
   }
       
   [data-buttons] > button[data-button-type="confirm"] {
     color: var(--_toast-confirm-buttons-confirm-text-color);
-    font-weight: bold;
+    font-weight: 600;
     background-color: var(--_toast-confirm-buttons-confirm-background-color);
   }
 
   [data-buttons] > button[data-button-type="cancel"] {
     color: var(--_toast-confirm-buttons-cancel-text-color);
+    font-weight: 600;
     background-color:var(--_toast-confirm-buttons-cancel-background-color);
   }
   
