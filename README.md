@@ -1,26 +1,26 @@
-## Motivation
+## Lightweight and framework-agnostic toast component
 
-I created this component mainly for my own projects. I needed a simple and reusable way to create toast notifications that could be easily integrated into any of my projects, regardless of the tech stack. 
+![License](https://badgen.net/npm/license/@moaqzdev/toast)
+![npm version](https://badgen.net/npm/v/@moaqzdev/toast)
+![Monthly downloads](https://badgen.net/npm/dm/@moaqzdev/toast)
+![Gzip + Minify size](https://badgen.net/bundlephobia/minzip/@moaqzdev/toast)  
 
-The component is built using **Web Components** and **Custom Events**, making it lightweight and easy to use. It also provides a utility `toast` function to create toasts without the need to manually dispatch custom events.
+## ⭐ Features
+
+- **Framework-Agnostic** - Works with any JS framework or plain HTML.
+- **Lightweight** - No dependencies.
+- **Customizable** – Style it with CSS variables.
+- **Easy-to-use**
+
+## 💡 Motivations
+
+- I was looking for a library for my toast notifications but couldn't find one that wasn't tied to a specific framework.
+- Learn [Web components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components).
+- Learn more about [Custom Events](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent).
 
 If you like this project, please consider giving it a ⭐.
 
-## Features
-
-- Framework-Agnostic
-- Lightweight
-- Easy to integrate
-- Customizable through CSS variables
-
-## Roadmap
-
-- [X] Add on enter/exit animations
-- [X] Export variables to customize the component
-- [ ] Improve accessibility
-- [X] Provide documentation
-
-## Usage
+## 🚀 Usage
 
 **Install the library**
 
@@ -68,7 +68,7 @@ toast.info({
 });
 ```
 
-## Customization
+## 🔧 Customization
 
 The component is customizable through CSS variables. You can override the default styles in your CSS to match your project’s design.
 
@@ -89,6 +89,20 @@ moaqz-toaster {
   --toast-error: #d2000571;
   --toast-warning: #e35f00aa;
   --toast-info: #0084e6a1;
+  --toast-confirm: #6600C06C;
+
+  /* Layout for actions (only applies to type="confirm") */
+  --toast-actions-direction: row; /* Layout direction */
+  --toast-actions-justify: flex-end; /* Button alignment */
+  --toast-actions-gap: 0.25rem;  /* Space between buttons */
+
+  /* Confirm button (for type="confirm") */
+  --toast-actions-confirm-text-color: white;
+  --toast-actions-confirm-background-color: #00713FDE;
+
+  /* Cancel button (for type="confirm") */
+  --toast-actions-cancel-text-color: white;
+  --toast-actions-cancel-background-color: #C40006D3;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -104,13 +118,22 @@ moaqz-toaster {
     --toast-error: #ff5d61b0;
     --toast-warning: #fe84389d;
     --toast-info: #3094feb9;
+    --toast-confirm: #C47EFFA4;
+
+    /* Confirm button (for type="confirm") */
+    --toast-actions-confirm-text-color: white;
+    --toast-actions-confirm-background-color: #54FFAD73;
+
+    /* Cancel button (for type="confirm") */
+    --toast-actions-cancel-text-color: white;
+    --toast-actions-cancel-background-color: #FF5D61B0;
   }
 }
 ```
 
 **Position**
 
-By default, the default position is `bottom-right`. You can customize the position of the toasts by using the position attribute. The available options are:
+By default, the position is `bottom-right`. You can customize the position of the toasts by using the position attribute. The available options are:
 
 - top-right
 - top-left
@@ -123,6 +146,24 @@ By default, the default position is `bottom-right`. You can customize the positi
 <moaqz-toaster position="bottom-right"></moaqz-toaster>
 ```
 
-## Acknowledgments
+## ❓ FAQ
+
+<details>
+  <summary>Why does the callback get removed after the first click in the confirm toast?</summary>
+  
+  <div>
+    <p>If you want to add custom functionality (e.g., incrementing a counter), please note that the callback will be removed after the first click, and the toast will be closed. This is not a bug; it is an intentional design to ensure that confirmation actions are handled just once.</p>
+  </div>
+</details>
+
+<details>
+  <summary>How can I make the Web Component compatible with SSR?</summary>
+  
+  <div>
+    <p>wip</p>
+  </div>
+</details>
+
+## 📃 Acknowledgments
 
 Thanks to [Manz](https://manz.dev/) for providing an excellent resource to learn [Web components](https://lenguajejs.com/webcomponents/). ♥️
