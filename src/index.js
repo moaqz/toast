@@ -94,19 +94,21 @@ class Toaster extends HTMLElement {
     toastEl.setAttribute("data-type", type);
 
     if (type === "confirm") {
-      const confirmButton = clonedTemplate.querySelector("button[data-button-type=\"confirm\"]");
+      const confirmButton = clonedTemplate.querySelector("button[data-action-type=\"confirm\"]");
       confirmButton.textContent = confirmText;
       confirmButton.addEventListener("click", () => {
         onConfirm?.();
         toastEl.remove();
-      });
+      }, { once: true });
 
       const cancelButton = confirmButton.nextElementSibling;
       cancelButton.textContent = cancelText;
       cancelButton.addEventListener("click", () => {
         onCancel?.();
         toastEl.remove();
-      });
+      }, { once: true });
+    } else {
+      clonedTemplate.querySelector("[data-actions]")?.remove();
     }
 
     this.shadowRoot.querySelector("[data-toaster]").appendChild(clonedTemplate);
@@ -146,9 +148,9 @@ class Toaster extends HTMLElement {
       <li data-toast>
         <p data-title></p>
         <p data-description></p>
-        <div data-buttons>
-          <button data-button-type="confirm">✅</button>
-          <button data-button-type="cancel">❌</button>
+        <div data-actions>
+          <button data-action-type="confirm"></button>
+          <button data-action-type="cancel"></button>
         </div>
       </li>
     </template>
@@ -319,40 +321,38 @@ class Toaster extends HTMLElement {
     &[data-type="confirm"] {
       border-top: 4px solid var(--_toast-confirm);
     }
-
-    &[data-type="confirm"] > [data-buttons] {
-      display: flex;
-    }
   }
 
-  [data-buttons] {
-    display: none;
+  [data-actions] {
+    display: flex;
     flex-direction: var(--_toast-actions-direction);
     justify-content: var(--_toast-actions-justify);
     gap: var(--_toast-actions-gap);
     margin-top: 0.5rem;
   }
 
-  [data-buttons] > button {
+  button[data-action-type="confirm"],
+  button[data-action-type="cancel"] {
     padding: 0.5rem;
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
     transition-property: opacity;
     transition-duration: 200ms;
-  }
-    
-  [data-buttons] > button:hover, [data-buttons] > button:focus {
-    opacity: 0.8;
+
+    &:hover,
+    &:focus {
+      opacity: 0.8;
+    }
   }
       
-  [data-buttons] > button[data-button-type="confirm"] {
+  button[data-action-type="confirm"] {
     color: var(--_toast-actions-confirm-text-color);
     font-weight: 600;
     background-color: var(--_toast-actions-confirm-background-color);
   }
 
-  [data-buttons] > button[data-button-type="cancel"] {
+  button[data-action-type="cancel"] {
     color: var(--_toast-actions-cancel-text-color);
     font-weight: 600;
     background-color:var(--_toast-actions-cancel-background-color);
