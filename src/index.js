@@ -176,15 +176,14 @@ class Toaster extends HTMLElement {
     --_toast-info: var(--toast-info, #0084E6A1);
     --_toast-confirm: var(--toast-confirm, #6600C06C);
 
-    --_toast-confirm-buttons-direction: var(--toast-confirm-buttons-direction, row);
-    --_toast-confirm-buttons-justify: var(--toast-confirm-buttons-justify, flex-end);
-    --_toast-confirm-buttons-gap: var(--toast-confirm-buttons-gap, 0.25rem);
+    --_toast-actions-direction: var(--toast-actions-direction, row);
+    --_toast-actions-justify: var(--toast-actions-justify, flex-end);
+    --_toast-actions-gap: var(--toast-actions-gap, 0.25rem);
 
-    --_toast-confirm-buttons-default-text-color: var(--toast-confirm-buttons-default-text-color, white);
-    --_toast-confirm-buttons-confirm-text-color: var(--toast-confirm-buttons-confirm-text-color, white);
-    --_toast-confirm-buttons-confirm-background-color: var(--toast-confirm-buttons-confirm-background-color, #00713FDE);
-    --_toast-confirm-buttons-cancel-text-color: var(--toast-confirm-buttons-cancel-text-color, white);
-    --_toast-confirm-buttons-cancel-background-color: var(--toast-confirm-buttons-cancel-background-color, #C40006D3);
+    --_toast-actions-confirm-text-color: var(--toast-actions-confirm-text-color, white);
+    --_toast-actions-confirm-background-color: var(--toast-actions-confirm-background-color, #00713FDE);
+    --_toast-actions-cancel-text-color: var(--toast-actions-cancel-text-color, white);
+    --_toast-actions-cancel-background-color: var(--toast-actions-cancel-background-color, #C40006D3);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -200,11 +199,10 @@ class Toaster extends HTMLElement {
       --_toast-info: var(--toast-info, #3094FEB9);
       --_toast-confirm: var(--toast-confirm, #C47EFFA4);
 
-      --_toast-confirm-buttons-default-text-color: var(--toast-confirm-buttons-default-text-color, white);
-      --_toast-confirm-buttons-confirm-text-color: var(--toast-confirm-buttons-confirm-text-color, white);
-      --_toast-confirm-buttons-confirm-background-color: var(--toast-confirm-buttons-confirm-background-color, #54FFAD73);
-      --_toast-confirm-buttons-cancel-text-color: var(--toast-confirm-buttons-cancel-text-color, white);
-      --_toast-confirm-buttons-cancel-background-color: var(--toast-confirm-buttons-cancel-background-color, #FF5D61B0);
+      --_toast-actions-confirm-text-color: var(--toast-actions-confirm-text-color, white);
+      --_toast-actions-confirm-background-color: var(--toast-actions-confirm-background-color, #54FFAD73);
+      --_toast-actions-cancel-text-color: var(--toast-actions-cancel-text-color, white);
+      --_toast-actions-cancel-background-color: var(--toast-actions-cancel-background-color, #FF5D61B0);
     }
   }
 
@@ -329,9 +327,9 @@ class Toaster extends HTMLElement {
 
   [data-buttons] {
     display: none;
-    flex-direction: var(--_toast-confirm-buttons-direction);
-    justify-content: var(--_toast-confirm-buttons-justify);
-    gap: var(--_toast-confirm-buttons-gap);
+    flex-direction: var(--_toast-actions-direction);
+    justify-content: var(--_toast-actions-justify);
+    gap: var(--_toast-actions-gap);
     margin-top: 0.5rem;
   }
 
@@ -340,7 +338,6 @@ class Toaster extends HTMLElement {
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
-    color: var(--_toast-confirm-buttons-default-text-color);
     transition-property: opacity;
     transition-duration: 200ms;
   }
@@ -350,15 +347,15 @@ class Toaster extends HTMLElement {
   }
       
   [data-buttons] > button[data-button-type="confirm"] {
-    color: var(--_toast-confirm-buttons-confirm-text-color);
+    color: var(--_toast-actions-confirm-text-color);
     font-weight: 600;
-    background-color: var(--_toast-confirm-buttons-confirm-background-color);
+    background-color: var(--_toast-actions-confirm-background-color);
   }
 
   [data-buttons] > button[data-button-type="cancel"] {
-    color: var(--_toast-confirm-buttons-cancel-text-color);
+    color: var(--_toast-actions-cancel-text-color);
     font-weight: 600;
-    background-color:var(--_toast-confirm-buttons-cancel-background-color);
+    background-color:var(--_toast-actions-cancel-background-color);
   }
   
   [data-title], [data-description] {
