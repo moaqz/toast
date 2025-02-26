@@ -111,6 +111,16 @@ class Toaster extends HTMLElement {
       clonedTemplate.querySelector("[data-actions]")?.remove();
     }
 
+    const isDismissable = this.hasAttribute("dismissable");
+    if (!isDismissable) {
+      clonedTemplate.querySelector("[data-close-button]")?.remove();
+    }
+
+    const closeBtn = clonedTemplate.querySelector("[data-close-button]");
+    closeBtn.addEventListener("click", () => {
+      toastEl.remove();
+    }, { once: true });
+
     this.shadowRoot.querySelector("[data-toaster]").appendChild(clonedTemplate);
 
     const animations = toastEl.getAnimations();
@@ -146,6 +156,21 @@ class Toaster extends HTMLElement {
 
     <template id="toast-tmpl">
       <li data-toast>
+        <button data-close-button aria-label="Close toast">
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="14" 
+            height="14" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            stroke-width="2" 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+          >
+            <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+          </svg>
+        </button>
         <p data-title></p>
         <p data-description></p>
         <div data-actions>
@@ -281,6 +306,7 @@ class Toaster extends HTMLElement {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    position: relative;
 
     pointer-events: none;
     user-select: none;
@@ -321,6 +347,25 @@ class Toaster extends HTMLElement {
     &[data-type="confirm"] {
       border-top: 4px solid var(--_toast-confirm);
     }
+  }
+
+  [data-close-button] {
+    --size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--size);
+    height: var(--size);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--_toast-title);
+    background-color: var(--_toast-background);
+    border-radius: 50%;
+    border: 1px solid var(--_toast-border);
+    padding: 0.125rem;
+    translate: -35% -35%;
+    cursor: pointer;
   }
 
   [data-actions] {

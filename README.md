@@ -146,6 +146,14 @@ By default, the position is `bottom-right`. You can customize the position of th
 <moaqz-toaster position="bottom-right"></moaqz-toaster>
 ```
 
+**Enable Close Button**
+
+By default, the toast component does not include a close button. You can enable it by adding the `dismissable` attribute.
+
+```html
+<moaqz-toaster dismissable></moaqz-toaster>
+```
+
 ## ❓ FAQ
 
 <details>
