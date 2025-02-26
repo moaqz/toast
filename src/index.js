@@ -115,12 +115,12 @@ class Toaster extends HTMLElement {
     }
 
     const isDismissable = this.hasAttribute("dismissable");
-    if (!isDismissable) {
+    if (isDismissable) {
+      const closeBtn = clonedTemplate.querySelector("[data-close-button]");
+      closeBtn.addEventListener("click", () => this.removeToast(toastEl), { once: true });
+    } else {
       clonedTemplate.querySelector("[data-close-button]")?.remove();
     }
-
-    const closeBtn = clonedTemplate.querySelector("[data-close-button]");
-    closeBtn.addEventListener("click", () => this.removeToast(toastEl), { once: true });
 
     this.shadowRoot.querySelector("[data-toaster]").appendChild(clonedTemplate);
 
