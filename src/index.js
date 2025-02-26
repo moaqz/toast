@@ -210,7 +210,6 @@ class Toaster extends HTMLElement {
 
   :host {
     --_travel-distance: var(--toast-travel-distance, 5vh);
-    --_animation-duration: var(--toast-animation-duration, 5s);
 
     --_toast-background: var(--toast-background, #FCFCFC);
     --_toast-border: var(--toast-border, #00000026);

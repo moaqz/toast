@@ -76,7 +76,6 @@ The component is customizable through CSS variables. You can override the defaul
 moaqz-toaster {
   /* Animation */
   --toast-travel-distance: 5vh;
-  --toast-animation-duration: 3s;
 
   /* Colors */
   --toast-background: #fcfcfc;
