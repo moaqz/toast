@@ -75,6 +75,7 @@ class Toaster extends HTMLElement {
     onCancel,
     confirmText = "✅",
     cancelText = "❌",
+    duration = 3000,
   }) {
     /** @type {HTMLTemplateElement | null} */
     const toastTemplate = this.shadowRoot.querySelector("#toast-tmpl");
@@ -93,19 +94,21 @@ class Toaster extends HTMLElement {
     toastDescriptionEl.textContent = description;
     toastEl.setAttribute("data-type", type);
 
+    const closeToast = () => this.removeToast(toastEl);
+
     if (type === "confirm") {
       const confirmButton = clonedTemplate.querySelector("button[data-action-type=\"confirm\"]");
       confirmButton.textContent = confirmText;
       confirmButton.addEventListener("click", () => {
         onConfirm?.();
-        toastEl.remove();
+        closeToast();
       }, { once: true });
 
       const cancelButton = confirmButton.nextElementSibling;
       cancelButton.textContent = cancelText;
       cancelButton.addEventListener("click", () => {
         onCancel?.();
-        toastEl.remove();
+        closeToast();
       }, { once: true });
     } else {
       clonedTemplate.querySelector("[data-actions]")?.remove();
@@ -117,15 +120,32 @@ class Toaster extends HTMLElement {
     }
 
     const closeBtn = clonedTemplate.querySelector("[data-close-button]");
-    closeBtn.addEventListener("click", () => {
-      toastEl.remove();
-    }, { once: true });
+    closeBtn.addEventListener("click", () => this.removeToast(toastEl), { once: true });
 
     this.shadowRoot.querySelector("[data-toaster]").appendChild(clonedTemplate);
 
-    const animations = toastEl.getAnimations();
-    await Promise.allSettled(animations.map((animation) => animation.finished));
-    toastEl.remove();
+    if (duration !== "none") {
+      const parsedDuration = Number.parseInt(duration, 10);
+
+      if (!Number.isNaN(parsedDuration) && parsedDuration > 0) {
+        setTimeout(closeToast, parsedDuration);
+        return;
+      }
+
+      setTimeout(closeToast, 3000);
+    }
+  }
+
+  /**
+   * @param {HTMLElement} node
+   */
+  removeToast(node, duration) {
+    const exitAnimation = node.animate(
+      [{ opacity: 1 }, { opacity: 0 }],
+      { duration: 300, easing: "ease", fill: "forwards" }
+    );
+
+    exitAnimation.finished.then(() => node.remove());
   }
 
   /**
@@ -243,10 +263,6 @@ class Toaster extends HTMLElement {
     from { opacity: 0 }
     to { opacity: 1 }
   }
-  
-  @keyframes fade-out {
-    to { opacity: 0 }
-  }
 
   [data-toaster] {
     --container-width: 20rem;
@@ -319,10 +335,7 @@ class Toaster extends HTMLElement {
     pointer-events: all;
 
     will-change: transform;
-    animation: 
-      fade-in .3s ease,
-      slide-in .3s ease,
-      fade-out .3s ease var(--_animation-duration);
+    animation: fade-in .3s ease, slide-in .3s ease;
 
     @media (prefers-reduced-motion: reduce){
       --_travel-distance: 0;

@@ -4,6 +4,7 @@ export type ToastConfirm = {
   title: string;
   description?: string
   type: "confirm";
+  duration?: number | "none";
   onConfirm: () => void;
   onCancel?: () => void;
   confirmText?: string;
@@ -14,6 +15,7 @@ export type Toast = {
   title: string;
   description?: string;
   type: ToastType;
+  duration?: number | "none";
 } | ToastConfirm;
 
 export type ToastEventConfirm = Omit<ToastConfirm, "type">;

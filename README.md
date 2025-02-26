@@ -91,16 +91,16 @@ moaqz-toaster {
   --toast-info: #0084e6a1;
   --toast-confirm: #6600C06C;
 
-  /* Layout for actions (only applies to type="confirm") */
+  /* Layout for actions */
   --toast-actions-direction: row; /* Layout direction */
   --toast-actions-justify: flex-end; /* Button alignment */
   --toast-actions-gap: 0.25rem;  /* Space between buttons */
 
-  /* Confirm button (for type="confirm") */
+  /* Confirm button */
   --toast-actions-confirm-text-color: white;
   --toast-actions-confirm-background-color: #00713FDE;
 
-  /* Cancel button (for type="confirm") */
+  /* Cancel button */
   --toast-actions-cancel-text-color: white;
   --toast-actions-cancel-background-color: #C40006D3;
 }
@@ -120,11 +120,11 @@ moaqz-toaster {
     --toast-info: #3094feb9;
     --toast-confirm: #C47EFFA4;
 
-    /* Confirm button (for type="confirm") */
+    /* Confirm button */
     --toast-actions-confirm-text-color: white;
     --toast-actions-confirm-background-color: #54FFAD73;
 
-    /* Cancel button (for type="confirm") */
+    /* Cancel button */
     --toast-actions-cancel-text-color: white;
     --toast-actions-cancel-background-color: #FF5D61B0;
   }
@@ -153,6 +153,25 @@ By default, the toast component does not include a close button. You can enable 
 ```html
 <moaqz-toaster dismissable></moaqz-toaster>
 ```
+
+**Toast Duration and Persistence**
+
+By default, the toast will be removed after `3s`. You can customize this behavior when emitting the custom event.
+
+```js
+toast.confirm({
+  title: "New Feature Available",
+  description: "A new update is available! Check out the latest features now.",
+  confirmText: "Update now",
+  cancelText: "Cancel",
+  duration: "none",
+});
+```
+
+The available options for the `duration` property are:
+
+- `none`: Use this when you don't want the toast to be automatically removed.
+- `number`: A number representing the duration in milliseconds.
 
 ## ❓ FAQ
 
