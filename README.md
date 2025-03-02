@@ -1,5 +1,9 @@
 ## Lightweight and framework-agnostic toast component
 
+
+https://github.com/user-attachments/assets/a0448e9d-4f14-4cd2-90bf-4e3d052ab5cc
+
+
 ![License](https://badgen.net/npm/license/@moaqzdev/toast)
 ![npm version](https://badgen.net/npm/v/@moaqzdev/toast)
 ![Monthly downloads](https://badgen.net/npm/dm/@moaqzdev/toast)
