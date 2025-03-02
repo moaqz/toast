@@ -1,8 +1,6 @@
 ## Lightweight and framework-agnostic toast component
 
-
-https://github.com/user-attachments/assets/a0448e9d-4f14-4cd2-90bf-4e3d052ab5cc
-
+<https://github.com/user-attachments/assets/a0448e9d-4f14-4cd2-90bf-4e3d052ab5cc>
 
 ![License](https://badgen.net/npm/license/@moaqzdev/toast)
 ![npm version](https://badgen.net/npm/v/@moaqzdev/toast)
@@ -178,21 +176,27 @@ The available options for the `duration` property are:
 
 ## ❓ FAQ
 
-<details>
-  <summary>Why does the callback get removed after the first click in the confirm toast?</summary>
-  
-  <div>
-    <p>If you want to add custom functionality (e.g., incrementing a counter), please note that the callback will be removed after the first click, and the toast will be closed. This is not a bug; it is an intentional design to ensure that confirmation actions are handled just once.</p>
-  </div>
-</details>
+#### Property 'moaqz-toaster' does not exist on type 'JSX.IntrinsicElements'
 
-<details>
-  <summary>How can I make the Web Component compatible with SSR?</summary>
+This TypeScript error occurs because TypeScript does not recognize custom elements as valid JSX elements by default. To fix it you must extend `JSX.IntrinsicElements` to tell TypeScript that `<moaqz-toaster>` is a valid element.
+
+**For React 18:**
+
+```typescript
+declare module "react/jsx-runtime" {
+  namespace JSX {
+    interface IntrinsicElements extends React.JSX.IntrinsicElements {
+      "moaqz-toaster": {};
+    }
+  }
+}
+```
+
+If you're using another framework like Solid or Preact check their documentation for how to extend `JSX.IntrinsicElements`.
+
+#### Why does the callback get removed after the first click in the confirm toast?
   
-  <div>
-    <p>wip</p>
-  </div>
-</details>
+The callback is automatically removed after the first click to prevent multiple executions.
 
 ## 📃 Acknowledgments
 
