@@ -175,8 +175,8 @@ class Toaster extends HTMLElement {
     <style>${Toaster.STYLES}</style>
 
     <template id="toast-tmpl">
-      <li data-toast>
-        <button data-close-button aria-label="Close toast">
+      <li data-toast tabindex="0">
+        <button data-close-button aria-label="Close">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             width="14" 
@@ -186,7 +186,8 @@ class Toaster extends HTMLElement {
             stroke="currentColor" 
             stroke-width="2" 
             stroke-linecap="round" 
-            stroke-linejoin="round" 
+            stroke-linejoin="round"
+            aria-hidden="true"
           >
             <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
           </svg>
@@ -194,13 +195,13 @@ class Toaster extends HTMLElement {
         <p data-title></p>
         <p data-description></p>
         <div data-actions>
-          <button data-action-type="confirm"></button>
-          <button data-action-type="cancel"></button>
+          <button type="button" data-action-type="confirm"></button>
+          <button type="button" data-action-type="cancel"></button>
         </div>
       </li>
     </template>
 
-    <ol data-toaster></ol>`;
+    <ol data-toaster tabindex="-1"></ol>`;
   }
 
   static STYLES = /* css */ `
