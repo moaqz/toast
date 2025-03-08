@@ -77,69 +77,64 @@ class Toaster extends HTMLElement {
     cancelText = "❌",
     duration = 3000,
   }) {
-    /** @type {HTMLTemplateElement | null} */
+    /** @type {HTMLTemplateElement} */
     const toastTemplate = this.shadowRoot.querySelector("#toast-tmpl");
+    const clonedTemplate = toastTemplate.content.cloneNode(true);
+    const toast = {
+      container: clonedTemplate.querySelector("[data-toast]"),
+      title: clonedTemplate.querySelector("[data-title]"),
+      description: clonedTemplate.querySelector("[data-description]"),
+      actions: clonedTemplate.querySelector("[data-actions]"),
+      confirmBtn: clonedTemplate.querySelector("button[data-action-type='confirm']"),
+      cancelBtn: clonedTemplate.querySelector("button[data-action-type='cancel']"),
+      closeBtn: clonedTemplate.querySelector("[data-close-button]"),
+    };
 
-    if (toastTemplate == null) {
-      throw new Error("toast template is not defined");
+    toast.title.textContent = title || "";
+    toast.container.setAttribute("data-type", type);
+
+    if (description == null) {
+      toast.description?.remove();
+    } else {
+      toast.description.textContent = description;
     }
 
-    const clonedTemplate = toastTemplate.content.cloneNode(true);
-    const toastTitleEl = clonedTemplate.querySelector("[data-title]");
-    const toastDescriptionEl =
-      clonedTemplate.querySelector("[data-description]");
-    const toastEl = clonedTemplate.querySelector("[data-toast]");
-
-    toastTitleEl.textContent = title;
-    toastDescriptionEl.textContent = description;
-    toastEl.setAttribute("data-type", type);
-
-    const closeToast = () => this.removeToast(toastEl);
+    const closeToast = () => this.removeToast(toast.container);
 
     if (type === "confirm") {
-      const confirmButton = clonedTemplate.querySelector("button[data-action-type=\"confirm\"]");
-      confirmButton.textContent = confirmText;
-      confirmButton.addEventListener("click", () => {
+      toast.confirmBtn.textContent = confirmText;
+      toast.confirmBtn.addEventListener("click", () => {
         onConfirm?.();
         closeToast();
       }, { once: true });
 
-      const cancelButton = confirmButton.nextElementSibling;
-      cancelButton.textContent = cancelText;
-      cancelButton.addEventListener("click", () => {
+      toast.cancelBtn.textContent = cancelText;
+      toast.cancelBtn.addEventListener("click", () => {
         onCancel?.();
         closeToast();
       }, { once: true });
     } else {
-      clonedTemplate.querySelector("[data-actions]")?.remove();
+      toast.actions?.remove();
     }
 
     const isDismissable = this.hasAttribute("dismissable");
     if (isDismissable) {
-      const closeBtn = clonedTemplate.querySelector("[data-close-button]");
-      closeBtn.addEventListener("click", () => this.removeToast(toastEl), { once: true });
+      toast.closeBtn.addEventListener("click", closeToast, { once: true });
     } else {
-      clonedTemplate.querySelector("[data-close-button]")?.remove();
+      toast.closeBtn?.remove();
     }
 
     this.shadowRoot.querySelector("[data-toaster]").appendChild(clonedTemplate);
-
     if (duration !== "none") {
-      const parsedDuration = Number.parseInt(duration, 10);
-
-      if (!Number.isNaN(parsedDuration) && parsedDuration > 0) {
-        setTimeout(closeToast, parsedDuration);
-        return;
-      }
-
-      setTimeout(closeToast, 3000);
+      const timeout = Math.max(Number.parseInt(duration, 10) || 0, 3000);
+      setTimeout(closeToast, timeout);
     }
   }
 
   /**
    * @param {HTMLElement} node
    */
-  removeToast(node, duration) {
+  removeToast(node) {
     const exitAnimation = node.animate(
       [{ opacity: 1 }, { opacity: 0 }],
       { duration: 300, easing: "ease", fill: "forwards" }
