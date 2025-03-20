@@ -126,8 +126,46 @@ class Toaster extends HTMLElement {
 
     this.shadowRoot.querySelector("[data-toaster]").appendChild(clonedTemplate);
     if (duration !== "none") {
-      const timeout = Math.max(Number.parseInt(duration, 10) || 0, 3000);
-      setTimeout(closeToast, timeout);
+      const toastDuration = Math.max(Number.parseInt(duration, 10) || 0, 3000);
+
+      const controller = new AbortController();
+      const initialTime = Date.now();
+      let pauseTimestamp = null;
+      let timeElapsed = 0;
+
+      const close = () => {
+        controller.abort();
+        closeToast();
+      };
+
+      let timeoutId = setTimeout(close, toastDuration);
+
+      const onHover = () => {
+        if (pauseTimestamp != null) { // if it is already paused.
+          return;
+        }
+
+        clearTimeout(timeoutId);
+        pauseTimestamp = Date.now();
+      };
+
+      const onLeave = () => {
+        if (pauseTimestamp == null) { // if not paused.
+          return;
+        };
+
+        timeElapsed = pauseTimestamp - initialTime;
+        pauseTimestamp = null;
+        timeoutId = setTimeout(close, Math.max(toastDuration - timeElapsed, 0));
+      };
+
+      ["focusin", "pointerenter", "mouseenter"].forEach(type => {
+        toast.container.addEventListener(type, onHover, { signal: controller.signal });
+      });
+
+      ["focusout", "pointerleave", "mouseleave"].forEach(type => {
+        toast.container.addEventListener(type, onLeave, { signal: controller.signal });
+      });
     }
   }
 
