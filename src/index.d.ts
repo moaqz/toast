@@ -31,3 +31,22 @@ export declare const toast: {
   info(details: ToastEvent): void;
   confirm(details: ToastEvent): void;
 };
+
+export type ToastPosition = "top-left"
+  | "top-right"
+  | "top-center"
+  | "bottom-left"
+  | "bottom-right"
+  | "bottom-center";
+
+export interface ToasterAttributes {
+  /**
+   * Specifies the position where all toasts will be rendered.
+   */
+  position: ToastPosition;
+  /**
+   * Determines whether the toast can be dismissed by the user.
+   * When true, a close button is added to the toast.
+   */
+  dismissable: boolean;
+}
