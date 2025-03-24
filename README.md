@@ -178,21 +178,43 @@ The available options for the `duration` property are:
 
 #### Property 'moaqz-toaster' does not exist on type 'JSX.IntrinsicElements'
 
-This TypeScript error occurs because TypeScript does not recognize custom elements as valid JSX elements by default. To fix it you must extend `JSX.IntrinsicElements` to tell TypeScript that `<moaqz-toaster>` is a valid element.
+This TypeScript error occurs because TypeScript does not recognize custom elements as valid JSX elements by default. To fix this, you need to extend `JSX.IntrinsicElements` to tell TypeScript that `<moaqz-toaster>` is a valid element.
 
-**For React 18:**
+The library provides an interface (`ToasterAttributes`) containing all the attributes for the custom element. You can use this interface to properly type the `<moaqz-toaster>` element.
+
+**For Preact**
 
 ```typescript
-declare module "react/jsx-runtime" {
-  namespace JSX {
-    interface IntrinsicElements extends React.JSX.IntrinsicElements {
-      "moaqz-toaster": {};
+// global.d.ts
+import { ToasterAttributes } from "@moaqzdev/toast";
+
+// https://preactjs.com/guide/v10/typescript#extending-built-in-jsx-types
+declare global {
+  namespace preact.JSX {
+    interface IntrinsicElements {
+      "moaqz-toaster": Partial<ToasterAttributes>;
     }
   }
 }
 ```
 
-If you're using another framework like Solid or Preact check their documentation for how to extend `JSX.IntrinsicElements`.
+**For Solid**
+
+```typescript
+// global.d.ts
+import { ToasterAttributes } from "@moaqzdev/toast";
+
+// https://docs.solidjs.com/configuration/typescript#advanced-jsx-attributes-and-directives
+declare module "solid-js" {
+  namespace JSX {
+    interface IntrinsicElements {
+      "moaqz-toaster": Partial<ToasterAttributes>;
+    }
+  }
+}
+```
+
+If you are using another framework check their documentation for how to extend `JSX.IntrinsicElements`.
 
 #### Why does the callback get removed after the first click in the confirm toast?
   
