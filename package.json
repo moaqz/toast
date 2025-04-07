@@ -40,6 +40,7 @@
     "wdio": "wdio run ./wdio.conf.js"
   },
   "devDependencies": {
+    "lefthook": "^1.9.0",
     "@wdio/browser-runner": "^9.12.4",
     "@wdio/cli": "^9.12.4",
     "@wdio/globals": "^9.12.4",
