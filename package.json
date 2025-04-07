@@ -34,9 +34,17 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prepublishOnly": "unbuild --minify"
+    "prepublishOnly": "unbuild --minify",
+    "test": "wdio run ./wdio.conf.js",
+    "test:watch": "wdio run ./wdio.conf.js --watch",
+    "wdio": "wdio run ./wdio.conf.js"
   },
   "devDependencies": {
+    "@wdio/browser-runner": "^9.12.4",
+    "@wdio/cli": "^9.12.4",
+    "@wdio/globals": "^9.12.4",
+    "@wdio/mocha-framework": "^9.12.3",
+    "@wdio/spec-reporter": "^9.12.3",
     "eslint": "^9.17.0",
     "eslint-config-moaqz": "^0.2.0",
     "unbuild": "^3.2.0"
