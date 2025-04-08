@@ -4,7 +4,7 @@ export const config = {
       enabled: true
     }
   }],
-  specs: ["./src/tests/*.spec.{js,mjs}"],
+  specs: ["./test/*.spec.{js,mjs}"],
   exclude: [],
   maxInstances: 1,
   capabilities: [
