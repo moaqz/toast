@@ -2,6 +2,13 @@
 
 All notable changes to the library will be documented in this file.
 
+## v1.3.0 (June 24, 2025)
+
+- Enhance toast signature to restrict each method to its specific properties
+- Remove CommonJS build
+- **BREAKING:** Split custom element declaration and utilities into separate files
+- **BREAKING:** Internal types no longer exported
+
 ## v0.3.0 (March 24, 2025)
 
 - Make toast WCAG 2.2.2 compliant ([pull request #4](https://github.com/moaqz/toast/pull/4))

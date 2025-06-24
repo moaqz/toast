@@ -1,7 +1,7 @@
 {
   "name": "@moaqzdev/toast",
   "private": false,
-  "version": "0.3.0",
+  "version": "1.3.0",
   "type": "module",
   "files": [
     "dist"
