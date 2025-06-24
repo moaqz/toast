@@ -52,7 +52,9 @@ pnpm add @moaqzdev/toast
 Import the `toast` object from the library and use it to create notifications.
 
 ```js
-import { toast } from "@moaqzdev/toast";
+// Register custom element.
+import "@moaqzdev/toast";
+import { toast } from "@moaqzdev/toast/utils";
 
 toast.success({
   title: "Success! Everything went smoothly.",
@@ -186,7 +188,7 @@ The library provides an interface (`ToasterAttributes`) containing all the attri
 
 ```typescript
 // global.d.ts
-import { ToasterAttributes } from "@moaqzdev/toast";
+import type { ToasterAttributes } from "@moaqzdev/toast/utils";
 
 // https://preactjs.com/guide/v10/typescript#extending-built-in-jsx-types
 declare global {
@@ -202,7 +204,7 @@ declare global {
 
 ```typescript
 // global.d.ts
-import { ToasterAttributes } from "@moaqzdev/toast";
+import type { ToasterAttributes } from "@moaqzdev/toast/utils";
 
 // https://docs.solidjs.com/configuration/typescript#advanced-jsx-attributes-and-directives
 declare module "solid-js" {
