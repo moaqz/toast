@@ -1,62 +1,6 @@
 /* global HTMLElement, customElements */
 
-/**
- * The custom event name used by the toast notification system.
- */
-export const TOAST_EVENT = "@moaqzdev/toast";
-
-export const toast = {
-  /**
-   * @param {import("./index.d").ToastType} type
-   * @param {import("./index.d").ToastEvent} detail
-   */
-  _dispatchToast(type, detail) {
-    /**
-     * @type {CustomEvent<import("./index.d").Toast>}
-     */
-    Object.assign(detail, { type });
-    const toast = new CustomEvent(TOAST_EVENT, {
-      detail,
-    });
-
-    document.dispatchEvent(toast);
-  },
-
-  /**
-   * @param {import("./index.d").ToastEvent} details
-   */
-  success(details) {
-    this._dispatchToast("success", details);
-  },
-
-  /**
-   * @param {import("./index.d").ToastEvent} details
-   */
-  error(details) {
-    this._dispatchToast("error", details);
-  },
-
-  /**
-   * @param {import("./index.d").ToastEvent} details
-   */
-  warning(details) {
-    this._dispatchToast("warning", details);
-  },
-
-  /**
-   * @param {import("./index.d").ToastEvent} details
-   */
-  info(details) {
-    this._dispatchToast("info", details);
-  },
-
-  /**
-   * @param {import("./index.d").ToastEvent & { onConfirm: () => void; onCancel?: () => void }} details
-   */
-  confirm(details) {
-    this._dispatchToast("confirm", details);
-  },
-};
+const TOAST_EVENT = "@moaqzdev/toast";
 
 class Toaster extends HTMLElement {
   constructor() {
@@ -65,7 +9,7 @@ class Toaster extends HTMLElement {
   }
 
   /**
-   * @param {import("./index.d").Toast}
+   * @param {import("./toast.d").Toast}
    */
   async createToast({
     title,
@@ -188,7 +132,7 @@ class Toaster extends HTMLElement {
     const isCustomEvent = event instanceof CustomEvent;
 
     if (isCustomEvent && event.type === TOAST_EVENT) {
-      /** @type {import("./index.d").Toast} */
+      /** @type {import("./toast.d").Toast} */
       const details = event.detail;
       this.createToast(details);
     }

@@ -2,7 +2,10 @@
 import { expect } from "@wdio/globals";
 import { spyOn } from "@wdio/browser-runner";
 import { SELECTORS, createToaster } from "./utils.js";
-import { toast } from "../src/index.js";
+
+// register toast
+import "../src/index.js";
+import { toast } from "../src/utils.js";
 
 describe("confirm toast", () => {
   let $toaster;
