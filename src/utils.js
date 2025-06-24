@@ -3,13 +3,14 @@ export const TOAST_EVENT = "@moaqzdev/toast";
 export const toast = {
   /**
    * @param {import("./toast.d").ToastType} type
-   * @param {import("./utils.d").ToastEvent} detail
+   * @param {import("./toast.d").ToastEvent} detail
    */
   _dispatchToast(type, detail) {
+    Object.assign(detail, { type });
+
     /**
      * @type {CustomEvent<import("./toast.d").Toast>}
      */
-    Object.assign(detail, { type });
     const toast = new CustomEvent(TOAST_EVENT, {
       detail,
     });
@@ -18,35 +19,35 @@ export const toast = {
   },
 
   /**
-   * @param {import("./utils.d").ToastEvent} details
+   * @param {import("./toast.d").ToastRegularEvent} details
    */
   success(details) {
     this._dispatchToast("success", details);
   },
 
   /**
-   * @param {import("./utils.d").ToastEvent} details
+   * @param {import("./toast.d").ToastRegularEvent} details
    */
   error(details) {
     this._dispatchToast("error", details);
   },
 
   /**
-   * @param {import("./utils.d").ToastEvent} details
+   * @param {import("./toast.d").ToastRegularEvent} details
    */
   warning(details) {
     this._dispatchToast("warning", details);
   },
 
   /**
-   * @param {import("./utils.d").ToastEvent} details
+   * @param {import("./toast.d").ToastRegularEvent} details
    */
   info(details) {
     this._dispatchToast("info", details);
   },
 
   /**
-   * @param {import("./utils.d").ToastEvent & { onConfirm: () => void; onCancel?: () => void }} details
+   * @param {import("./toast.d").ToastConfirmEvent} details
    */
   confirm(details) {
     this._dispatchToast("confirm", details);

@@ -1,22 +1,24 @@
 export type ToastType = "success" | "error" | "warning" | "info" | "confirm";
 
-export type ToastConfirm = {
+export interface BaseToast {
   title: string;
-  description?: string
-  type: "confirm";
+  description?: string;
   duration?: number | "none";
+}
+
+export interface ToastConfirm extends BaseToast {
+  type: "confirm";
   onConfirm: () => void;
   onCancel?: () => void;
   confirmText?: string;
   cancelText?: string;
-};
+}
 
-export type Toast = {
-  title: string;
-  description?: string;
-  type: ToastType;
-  duration?: number | "none";
-} | ToastConfirm;
+export interface RegularToast extends BaseToast {
+  type: Exclude<ToastType, "confirm">;
+}
+
+export type Toast = RegularToast | ToastConfirm;
 
 export type ToastPosition = "top-left"
   | "top-right"
@@ -25,5 +27,6 @@ export type ToastPosition = "top-left"
   | "bottom-right"
   | "bottom-center";
 
-export type ToastEventConfirm = Omit<ToastConfirm, "type">;
-export type ToastEvent = Omit<Toast, "type"> | ToastEventConfirm;
+export type ToastConfirmEvent = Omit<ToastConfirm, "type">;
+export type ToastRegularEvent = BaseToast;
+export type ToastEvent = ToastRegularEvent | ToastConfirmEvent;
