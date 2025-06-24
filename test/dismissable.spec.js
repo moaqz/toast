@@ -1,7 +1,10 @@
 /* global it, describe, before */
 import { expect, browser } from "@wdio/globals";
 import { SELECTORS, createToaster } from "./utils.js";
-import { toast } from "../src/index.js";
+
+// register toast
+import "../src/index.js";
+import { toast } from "../src/utils.js";
 
 describe("dismissable toast", () => {
   let $toaster;
