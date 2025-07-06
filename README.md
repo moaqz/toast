@@ -1,5 +1,3 @@
-## Lightweight and framework-agnostic toast component
-
 <https://github.com/user-attachments/assets/a0448e9d-4f14-4cd2-90bf-4e3d052ab5cc>
 
 ![License](https://badgen.net/npm/license/@moaqzdev/toast)
@@ -9,18 +7,21 @@
 
 ## ⭐ Features
 
-- **Framework-Agnostic** - Works with any JS framework or plain HTML.
-- **Lightweight** - No dependencies.
-- **Customizable** – Style it with CSS variables.
-- **Easy-to-use**
+- **Framework independent**
+- **Small bundle size** - less than 3KB min/gzip
+- **Themeable** – customizable via CSS variables
+- **Zero dependencies**
+
+> [!NOTE]
+> Coming soon: support for CSS Shadow Parts for more granular styling control.
 
 ## 💡 Motivations
 
-- I was looking for a library for my toast notifications but couldn't find one that wasn't tied to a specific framework.
+- I needed a toast notification solution that wasn't tied to any framework.
 - Learn [Web components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components).
 - Learn more about [Custom Events](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent).
 
-If you like this project, please consider giving it a ⭐.
+> ⭐ If you like this project, consider giving it a star!
 
 ## 🚀 Usage
 
@@ -52,8 +53,7 @@ pnpm add @moaqzdev/toast
 Import the `toast` object from the library and use it to create notifications.
 
 ```js
-// Register custom element.
-import "@moaqzdev/toast";
+import "@moaqzdev/toast"; // Registers the <moaqz-toaster> element
 import { toast } from "@moaqzdev/toast/utils";
 
 toast.success({
@@ -217,10 +217,6 @@ declare module "solid-js" {
 ```
 
 If you are using another framework check their documentation for how to extend `JSX.IntrinsicElements`.
-
-#### Why does the callback get removed after the first click in the confirm toast?
-  
-The callback is automatically removed after the first click to prevent multiple executions.
 
 ## 📃 Acknowledgments
 
