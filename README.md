@@ -25,13 +25,15 @@
 
 ## 🚀 Usage
 
-**Install the library**
+**Install**
 
 ```bash
 pnpm add @moaqzdev/toast
 ```
 
-**Import the library in your JavaScript to register the custom element and then add the `<moaqz-toaster>` element to your HTML:**
+**Import and register**
+
+Import the library to register the custom element, then add the `<moaqz-toaster>` element to your HTML:
 
 ```html
 <!doctype html>
@@ -48,9 +50,9 @@ pnpm add @moaqzdev/toast
 </html>
 ```
 
-**Using the toast API**
+**Use the toast API**
 
-Import the `toast` object from the library and use it to create notifications.
+Import the `toast` object and use it to create notifications:
 
 ```js
 import "@moaqzdev/toast"; // Registers the <moaqz-toaster> element
@@ -74,7 +76,7 @@ toast.info({
 
 ## 🔧 Customization
 
-The component is customizable through CSS variables. You can override the default styles in your CSS to match your project’s design.
+The component is customizable via CSS variables. You can override the default styles to match your project’s design:
 
 ```css
 moaqz-toaster {
@@ -136,7 +138,9 @@ moaqz-toaster {
 
 **Position**
 
-By default, the position is `bottom-right`. You can customize the position of the toasts by using the position attribute. The available options are:
+By default, toasts appear in the bottom-right corner. You can customize the position of the toasts by using the position attribute.
+
+Available options:
 
 - top-right
 - top-left
@@ -151,7 +155,7 @@ By default, the position is `bottom-right`. You can customize the position of th
 
 **Enable Close Button**
 
-By default, the toast component does not include a close button. You can enable it by adding the `dismissable` attribute.
+By default, a toast does not include a close button. You can enable it by adding the `dismissable` attribute.
 
 ```html
 <moaqz-toaster dismissable></moaqz-toaster>
@@ -159,7 +163,7 @@ By default, the toast component does not include a close button. You can enable 
 
 **Toast Duration and Persistence**
 
-By default, the toast will be removed after `3s`. You can customize this behavior when emitting the custom event.
+By default, a toast is automatically removed after 3 seconds (3000 ms). You can customize this behavior when emitting the custom event:
 
 ```js
 toast.confirm({
@@ -171,20 +175,28 @@ toast.confirm({
 });
 ```
 
-The available options for the `duration` property are:
+Available options:
 
-- `none`: Use this when you don't want the toast to be automatically removed.
-- `number`: A number representing the duration in milliseconds.
+- `none`: Prevents the toast from being automatically removed.
+- `number`: A numeric value in milliseconds that defines how long the toast remains visible.
+
+Since `v1.4.0`, you can also define a global duration for all toasts using the `duration` attribute on the toaster element:
+
+```html
+<moaqz-toaster duration="10000"></moaqz-toaster>
+```
+
+Toasts without an explicit duration will inherit this global value. If neither a per-toast nor a global duration is defined, the default is 3 seconds (3000 ms).
 
 ## ❓ FAQ
 
 #### Property 'moaqz-toaster' does not exist on type 'JSX.IntrinsicElements'
 
-This TypeScript error occurs because TypeScript does not recognize custom elements as valid JSX elements by default. To fix this, you need to extend `JSX.IntrinsicElements` to tell TypeScript that `<moaqz-toaster>` is a valid element.
+This TypeScript error occurs because custom elements are not recognized as valid JSX elements by default. To fix it, extend `JSX.IntrinsicElements` to declare `<moaqz-toaster>` as a valid element.
 
-The library provides an interface (`ToasterAttributes`) containing all the attributes for the custom element. You can use this interface to properly type the `<moaqz-toaster>` element.
+The library provides a `ToasterAttributes` interface containing all supported attributes. You can use it to properly type the element.
 
-**For Preact**
+**Preact**
 
 ```typescript
 // global.d.ts
@@ -200,7 +212,7 @@ declare global {
 }
 ```
 
-**For Solid**
+**Solid**
 
 ```typescript
 // global.d.ts
@@ -216,8 +228,8 @@ declare module "solid-js" {
 }
 ```
 
-If you are using another framework check their documentation for how to extend `JSX.IntrinsicElements`.
+If you are using another framework, check its documentation on how to extend `JSX.IntrinsicElements`.
 
 ## 📃 Acknowledgments
 
-Thanks to [Manz](https://manz.dev/) for providing an excellent resource to learn [Web components](https://lenguajejs.com/webcomponents/). ♥️
+Thanks to [Manz](https://manz.dev/) for providing an excellent resource on [Web Components](https://lenguajejs.com/webcomponents/).
