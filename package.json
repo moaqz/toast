@@ -42,14 +42,15 @@
     "wdio": "wdio run ./wdio.conf.js"
   },
   "devDependencies": {
-    "@wdio/browser-runner": "^9.16.2",
-    "@wdio/cli": "^9.16.2",
-    "@wdio/globals": "^9.16.2",
-    "@wdio/mocha-framework": "^9.16.2",
-    "@wdio/spec-reporter": "^9.16.2",
-    "eslint": "^9.30.1",
+    "@wdio/browser-runner": "^9.20.0",
+    "@wdio/cli": "^9.20.0",
+    "@wdio/globals": "^9.17.0",
+    "@wdio/mocha-framework": "^9.20.0",
+    "@wdio/spec-reporter": "^9.20.0",
+    "eslint": "^9.37.0",
     "eslint-config-moaqz": "^0.3.0",
-    "lefthook": "^1.11.16",
-    "unbuild": "^3.5.0"
+    "lefthook": "^1.13.6",
+    "typescript": "^5.9.3",
+    "unbuild": "^3.6.1"
   }
 }
