@@ -21,4 +21,8 @@ export interface ToasterAttributes {
    * When true, a close button is added to the toast.
    */
   dismissable: boolean;
+  /**
+   * Time in milliseconds that should elapse before automatically closing the toast.
+   */
+  duration: number;
 }

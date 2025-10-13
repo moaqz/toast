@@ -8,6 +8,32 @@ class Toaster extends HTMLElement {
     this.attachShadow({ mode: "open" });
   }
 
+  static #defaultDuration = 3000;
+
+  /**
+   * @param {number | "none"| undefined} duration
+   * @returns {number | "none"}
+   */
+  parseDuration(duration) {
+    if (duration === "none") {
+      return duration;
+    }
+
+    if (Number.isInteger(duration) && duration > Toaster.#defaultDuration) {
+      return duration;
+    };
+
+    const attrDuration = this.getAttribute("duration");
+    if (attrDuration) {
+      const _value = Number.parseInt(attrDuration);
+      if (!Number.isNaN(_value)) {
+        return _value;
+      }
+    }
+
+    return Toaster.#defaultDuration;
+  }
+
   /**
    * @param {import("./toast.d").Toast}
    */
@@ -19,7 +45,7 @@ class Toaster extends HTMLElement {
     onCancel,
     confirmText = "✅",
     cancelText = "❌",
-    duration = 3000,
+    duration,
   }) {
     /** @type {HTMLTemplateElement} */
     const toastTemplate = this.shadowRoot.querySelector("#toast-tmpl");
@@ -33,6 +59,8 @@ class Toaster extends HTMLElement {
       cancelBtn: clonedTemplate.querySelector("button[data-action-type='cancel']"),
       closeBtn: clonedTemplate.querySelector("[data-close-button]"),
     };
+
+    duration = this.parseDuration(duration);
 
     toast.title.textContent = title || "";
     toast.container.setAttribute("data-type", type);
@@ -70,8 +98,6 @@ class Toaster extends HTMLElement {
 
     this.shadowRoot.querySelector("[data-toaster]").appendChild(clonedTemplate);
     if (duration !== "none") {
-      const toastDuration = Math.max(Number.parseInt(duration, 10) || 0, 3000);
-
       const controller = new AbortController();
       const initialTime = Date.now();
       let pauseTimestamp = null;
@@ -82,7 +108,7 @@ class Toaster extends HTMLElement {
         closeToast();
       };
 
-      let timeoutId = setTimeout(close, toastDuration);
+      let timeoutId = setTimeout(close, duration);
 
       const onHover = () => {
         if (pauseTimestamp != null) { // if it is already paused.
@@ -100,7 +126,7 @@ class Toaster extends HTMLElement {
 
         timeElapsed = pauseTimestamp - initialTime;
         pauseTimestamp = null;
-        timeoutId = setTimeout(close, Math.max(toastDuration - timeElapsed, 0));
+        timeoutId = setTimeout(close, Math.max(duration - timeElapsed, 0));
       };
 
       ["focusin", "pointerenter", "mouseenter"].forEach(type => {
