@@ -2,6 +2,10 @@
 
 All notable changes to the library will be documented in this file.
 
+## v1.4.0 (Oct 13, 2025)
+
+- Add global duration for all toasts via `duration` attribute
+
 ## v1.3.0 (June 24, 2025)
 
 - Enhance toast signature to restrict each method to its specific properties
@@ -11,7 +15,7 @@ All notable changes to the library will be documented in this file.
 
 ## v0.3.0 (March 24, 2025)
 
-- Make toast WCAG 2.2.2 compliant ([pull request #4](https://github.com/moaqz/toast/pull/4))
+- Ensure toast is WCAG 2.2.2 compliant ([pull request #4](https://github.com/moaqz/toast/pull/4))
 - Add `ToasterAttributes` interface to global exports
 
 ## v0.2.0 (February 26, 2025)
@@ -24,7 +28,7 @@ All notable changes to the library will be documented in this file.
 
 ## v0.1.1 (January 13, 2025)
 
-- Improve text in README.md
+- Refine README.md text
 
 ## v0.1.0 (January 13, 2025)
 
