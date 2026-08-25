@@ -1,0 +1,44 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc"],
+  "categories": {
+    "correctness": "error",
+    "style": "allow"
+  },
+  "rules": {
+    "no-console": "error",
+    "prefer-template": "error",
+    "no-template-curly-in-string": "error",
+    "curly": ["error", "all", "consistent"],
+    "sort-keys": ["error", "asc"],
+
+    "unicorn/consistent-empty-array-spread": "error",
+    "unicorn/error-message": "error",
+    "unicorn/number-literal-case": "error",
+    "unicorn/prefer-includes": "error",
+    "unicorn/prefer-node-protocol": "error",
+    "unicorn/prefer-number-properties": "error",
+    "unicorn/prefer-string-starts-ends-with": "error",
+    "unicorn/prefer-type-error": "error",
+    "unicorn/throw-new-error": "error",
+
+    /** DOM */
+    "unicorn/prefer-dom-node-text-content": "error",
+    "unicorn/prefer-modern-dom-apis": "error",
+    "unicorn/prefer-query-selector": "error",
+
+    /** Avoid */
+    "unicorn/no-nested-ternary": "off",
+    "unicorn/no-instanceof-array": "error",
+    "unicorn/new-for-builtins": "error",
+    "unicorn/no-new-array": "error",
+    "unicorn/no-new-buffer": "error",
+    "unicorn/no-invalid-fetch-options": "error",
+    "unicorn/no-this-assignment": "error",
+    "unicorn/no-unnecessary-await": "error",
+    "unicorn/no-negation-in-equality-check": "error"
+  },
+  "env": {
+    "builtin": true
+  }
+}

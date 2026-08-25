@@ -2,6 +2,8 @@
  * @type {import("unbuild").BuildConfig}
  */
 export default {
+  clean: true,
+  declaration: true,
   entries: [
     {
       input: "./src/index.js"
@@ -10,16 +12,13 @@ export default {
       input: "./src/utils.js",
     }
   ],
-  declaration: true,
-  clean: true,
-
   rollup: {
     esbuild: {
       minify: true,
     },
     output: {
-      format: "esm",
       compact: true,
+      format: "esm",
     }
   }
 };

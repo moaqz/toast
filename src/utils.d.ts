@@ -1,4 +1,4 @@
-import { ToastType, ToastPosition, ToastEvent, ToastConfirmEvent, ToastRegularEvent } from "./toast";
+import { ToastConfirmEvent, ToastEvent, ToastPosition, ToastRegularEvent, ToastType } from "./toast";
 
 export declare const toast: {
   _dispatchToast(type: ToastType, details: ToastEvent): void;

@@ -1,12 +1,5 @@
 export const config = {
-  runner: ["browser", {
-    coverage: {
-      enabled: true
-    }
-  }],
-  specs: ["./test/*.spec.{js,mjs}"],
-  exclude: [],
-  maxInstances: 1,
+  bail: 0,
   capabilities: [
     {
       "browserName": "firefox",
@@ -15,16 +8,23 @@ export const config = {
       }
     },
   ],
-  logLevel: "error",
-  bail: 0,
-  waitforTimeout: 10000,
-  injectGlobals: false,
-  connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
+  connectionRetryTimeout: 120000,
+  exclude: [],
   framework: "mocha",
-  reporters: ["spec"],
+  injectGlobals: false,
+  logLevel: "error",
+  maxInstances: 1,
   mochaOpts: {
-    ui: "bdd",
-    timeout: 60000
+    timeout: 60000,
+    ui: "bdd"
   },
+  reporters: ["spec"],
+  runner: ["browser", {
+    coverage: {
+      enabled: true
+    }
+  }],
+  specs: ["./test/*.spec.{js,mjs}"],
+  waitforTimeout: 10000,
 };

@@ -1,5 +1,5 @@
 /* global it, describe, before */
-import { expect, browser } from "@wdio/globals";
+import { browser, expect } from "@wdio/globals";
 import { SELECTORS, createToaster } from "./utils.js";
 
 // register toast
@@ -14,7 +14,7 @@ describe("dismissable toast", () => {
   });
 
   it("should remove toast after closing it", async () => {
-    toast.info({ title: "test title", duration: "none" });
+    toast.info({ duration: "none", title: "test title" });
 
     const $toast = await $toaster.$(SELECTORS.TOAST);
     await expect($toast).toExist();

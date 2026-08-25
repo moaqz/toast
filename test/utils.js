@@ -1,11 +1,11 @@
 import { browser } from "@wdio/globals";
 
 export const SELECTORS = {
-  TOASTER_CONTAINER: "[data-toaster]",
-  TOAST: "[data-toast]:first-child",
+  CANCEL_BUTTON: "button[data-action-type='cancel']",
   CLOSE_BUTTON: "[data-close-button]",
   CONFIRM_BUTTON: "button[data-action-type='confirm']",
-  CANCEL_BUTTON: "button[data-action-type='cancel']"
+  TOAST: "[data-toast]:first-child",
+  TOASTER_CONTAINER: "[data-toaster]"
 };
 
 export async function createToaster(options = {}) {

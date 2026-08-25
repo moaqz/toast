@@ -51,13 +51,13 @@ class Toaster extends HTMLElement {
     const toastTemplate = this.shadowRoot.querySelector("#toast-tmpl");
     const clonedTemplate = toastTemplate.content.cloneNode(true);
     const toast = {
-      container: clonedTemplate.querySelector("[data-toast]"),
-      title: clonedTemplate.querySelector("[data-title]"),
-      description: clonedTemplate.querySelector("[data-description]"),
       actions: clonedTemplate.querySelector("[data-actions]"),
-      confirmBtn: clonedTemplate.querySelector("button[data-action-type='confirm']"),
       cancelBtn: clonedTemplate.querySelector("button[data-action-type='cancel']"),
       closeBtn: clonedTemplate.querySelector("[data-close-button]"),
+      confirmBtn: clonedTemplate.querySelector("button[data-action-type='confirm']"),
+      container: clonedTemplate.querySelector("[data-toast]"),
+      description: clonedTemplate.querySelector("[data-description]"),
+      title: clonedTemplate.querySelector("[data-title]"),
     };
 
     duration = this.parseDuration(duration);

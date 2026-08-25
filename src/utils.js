@@ -19,10 +19,10 @@ export const toast = {
   },
 
   /**
-   * @param {import("./toast.d").ToastRegularEvent} details
+   * @param {import("./toast.d").ToastConfirmEvent} details
    */
-  success(details) {
-    this._dispatchToast("success", details);
+  confirm(details) {
+    this._dispatchToast("confirm", details);
   },
 
   /**
@@ -35,21 +35,21 @@ export const toast = {
   /**
    * @param {import("./toast.d").ToastRegularEvent} details
    */
-  warning(details) {
-    this._dispatchToast("warning", details);
-  },
-
-  /**
-   * @param {import("./toast.d").ToastRegularEvent} details
-   */
   info(details) {
     this._dispatchToast("info", details);
   },
 
   /**
-   * @param {import("./toast.d").ToastConfirmEvent} details
+   * @param {import("./toast.d").ToastRegularEvent} details
    */
-  confirm(details) {
-    this._dispatchToast("confirm", details);
+  success(details) {
+    this._dispatchToast("success", details);
+  },
+
+  /**
+   * @param {import("./toast.d").ToastRegularEvent} details
+   */
+  warning(details) {
+    this._dispatchToast("warning", details);
   },
 };

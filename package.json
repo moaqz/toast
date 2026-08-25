@@ -34,8 +34,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
     "prepublishOnly": "unbuild --minify",
     "test": "wdio run ./wdio.conf.js",
     "test:watch": "wdio run ./wdio.conf.js --watch",
@@ -47,9 +47,8 @@
     "@wdio/globals": "^9.31.1",
     "@wdio/mocha-framework": "^9.31.2",
     "@wdio/spec-reporter": "^9.31.2",
-    "eslint": "^10.9.1",
-    "eslint-config-moaqz": "^0.3.0",
     "lefthook": "^2.1.10",
+    "oxlint": "^1.79.0",
     "typescript": "^7.0.2",
     "unbuild": "^3.6.1"
   }

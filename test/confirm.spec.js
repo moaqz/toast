@@ -17,14 +17,14 @@ describe("confirm toast", () => {
     onConfirmSpy = spyOn(console, "log");
 
     toast.confirm({
-      title: "Example #1",
-      confirmText: "Confirm",
       cancelText: "Cancel",
+      confirmText: "Confirm",
+      duration: "none",
       onConfirm: () => {
         // eslint-disable-next-line no-console
         console.log("confirm button clicked");
       },
-      duration: "none"
+      title: "Example #1"
     });
   });
 
